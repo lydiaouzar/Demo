@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="ISO-8859-1"/>
+		<title>Creation livre</title>
+	</head>
+	
+	<body>
+		<form>
+			ISBN : <input id="iSBN" type="text" name="iSBN"><br>
+			Nom de livre : <input id="nbPage" type="text" name="nbPage"><br>
+			Prix : <input id="prix" type="number" name="prix"><br>
+			<br><br>
+			<input type="button" value="Valider" onclick="sendDictionnaire()"><br>
+		</form>
+		
+		<script>
+			function sendDictionnaire(){
+				var text = '{"';
+				text += 'iSBN":"' + document.getElementById("iSBN").value + '",';
+				
+				text += '"prix":"' + document.getElementById("prix").value + '",';
+				text += '"emprunt": false}';
+				
+				var dictionnaire = JSON.parse(text);
+				
+				var httpRequest = new XMLHttpRequest();
+				httpRequest.open('POST', "http://localhost:8080/dictionnaires", true);
+				httpRequest.setRequestHeader("Content-type", "application/json");
+				httpRequest.send(JSON.stringify(dictionnaires));
+			}
+		</script>
+	</body>
+</html>
